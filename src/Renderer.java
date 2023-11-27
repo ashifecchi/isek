@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
+import java.io.File;
 
 public class Renderer {
     private static JFrame frame;
@@ -55,11 +57,14 @@ public class Renderer {
 
                     graph.setColor(new Color(170, 224, 242));
                     graph.fillRect(0,0, gameWidth, gameHeight);
+                    graph.setColor(new Color(188, 240, 173));
+                    graph.drawRect(0,100,gameWidth,gameHeight);
+                    graph.drawImage(new BufferedImage(0,0,"png")), 0,0,gameWidth,gameHeight,null);
                     //other stuff...
                     graph.dispose();
 
                     graph = canvas.getGraphics();
-                    graph.drawImage(Img, 0, 0, new Color(170, 224, 242), null);
+                    graph.drawImage(Img, 0, 0, new Color(188, 240, 173), null);
 
                     graph.dispose();
                 }
