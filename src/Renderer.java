@@ -21,6 +21,10 @@ public class Renderer {
 
     private static int gameWidth = 0;
     private static int gameHeight = 0;
+
+    private static long LastFPS = 0;
+    private static int NowFPS = 0;
+    private static int totalFrames = 0;
     public static void init (){
         Toolkit tools = Toolkit.getDefaultToolkit();
         frame = new JFrame();
@@ -49,18 +53,34 @@ public class Renderer {
                 GraphicsConfiguration graphic = canvas.getGraphicsConfiguration();
                 VolatileImage Img = graphic.createCompatibleVolatileImage(gameWidth, gameHeight);
                 while (goober){
+                    //counts fps... might remove if not vital to my thing.
+                    totalFrames++;
+                    if (System.nanoTime() > LastFPS + 1000000000){
+                        LastFPS = System.nanoTime();
+                        NowFPS = totalFrames;
+                        totalFrames = 0;
+                        System.out.println("FPS: "+ NowFPS);
+                    }
+
                     if (Img.validate(graphic) == VolatileImage.IMAGE_INCOMPATIBLE){
                         Img = graphic.createCompatibleVolatileImage(gameWidth, gameHeight); //create the image again
                     }
 
                     Graphics graph = Img.getGraphics();
-
+                    //screen clear
                     graph.setColor(new Color(170, 224, 242));
                     graph.fillRect(0,0, gameWidth, gameHeight);
-                    graph.setColor(new Color(188, 240, 173));
-                    graph.drawRect(0,100,gameWidth,gameHeight);
-                    graph.drawImage(new BufferedImage(0,0,"png")), 0,0,gameWidth,gameHeight,null);
+
+                    //render stuff
+                    graph.setColor(new Color(80, 255, 143));
+                    graph.fillRect(0,0,100,100);
+
+                    //fps counter drawing time
+                    graph.setColor(new Color(100,70,100));
+                    graph.drawString("FPS: " + NowFPS,2,10);
+
                     //other stuff...
+
                     graph.dispose();
 
                     graph = canvas.getGraphics();
