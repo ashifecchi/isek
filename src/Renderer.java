@@ -1,4 +1,5 @@
 import java.awt.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.BorderLayout;
@@ -10,6 +11,8 @@ import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 public class Renderer {
     private static JFrame frame;
@@ -93,4 +96,11 @@ public class Renderer {
         thread.setName("coolguy746");
         thread.start();
     }
+
+    public static BufferedImage loadImage (String path) throws IOException {
+        BufferedImage rawImage = ImageIO.read(Objects.requireNonNull(Renderer.class.getResource(path)));
+
+        return canvas.getGraphicsConfiguration().createCompatibleImage(rawImage.getWidth(), rawImage.getHeight(), rawImage.getTransparency());
+    }
+
 }
