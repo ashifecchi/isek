@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Renderer {
     private static JFrame frame;
@@ -98,9 +97,10 @@ public class Renderer {
     }
 
     public static BufferedImage loadImage (String path) throws IOException {
-        BufferedImage rawImage = ImageIO.read(Objects.requireNonNull(Renderer.class.getResource(path)));
+        BufferedImage rawImage = ImageIO.read(Renderer.class.getResource(path));
+        BufferedImage finalImage = canvas.getGraphicsConfiguration().createCompatibleImage(rawImage.getWidth(), rawImage.getHeight(), rawImage.getTransparency());
 
-        return canvas.getGraphicsConfiguration().createCompatibleImage(rawImage.getWidth(), rawImage.getHeight(), rawImage.getTransparency());
+        return finalImage;
     }
 
 }

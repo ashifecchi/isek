@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55cafb24-5523-485c-853a-411ed5ac4be7" name="Changes" comment="added an fps counter">
-      <change afterPath="$PROJECT_DIR$/Image.resources" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Sprite.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tsukasanui.jpg" afterDir="false" />
+    <list default="true" id="55cafb24-5523-485c-853a-411ed5ac4be7" name="Changes" comment="added new class">
+      <change afterPath="$PROJECT_DIR$/Resources/image-removebg-preview.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/World.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +58,7 @@
       <recent name="C:\Users\bingo\IdeaProjects\Isekai\out" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\bingo\IdeaProjects\Isekai\Resources" />
       <recent name="C:\Users\BT_1N3_32\IdeaProjects\isek\src" />
     </key>
   </component>
@@ -103,13 +100,43 @@
       <option name="project" value="LOCAL" />
       <updated>1701218484581</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added new class">
+      <option name="closed" value="true" />
+      <created>1701221083081</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1701221083081</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="fixed the window" />
     <MESSAGE value="added an fps counter" />
-    <option name="LAST_COMMIT_MESSAGE" value="added an fps counter" />
+    <MESSAGE value="added new class" />
+    <option name="LAST_COMMIT_MESSAGE" value="added new class" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
