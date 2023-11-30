@@ -82,6 +82,7 @@ public class Renderer {
                     graph.drawString("FPS: " + NowFPS,2,10);
 
                     //other stuff...
+                    BufferedImage img = Renderer.loadImage("Resources/image-removebg-preview.png");
 
                     graph.dispose();
 
@@ -97,9 +98,8 @@ public class Renderer {
     }
 
     public static BufferedImage loadImage (String path) throws IOException {
-        BufferedImage rawImage = ImageIO.read(Renderer.class.getResource(path));
+        BufferedImage rawImage = ImageIO.read(new File(path));
         BufferedImage finalImage = canvas.getGraphicsConfiguration().createCompatibleImage(rawImage.getWidth(), rawImage.getHeight(), rawImage.getTransparency());
-
         return finalImage;
     }
 
