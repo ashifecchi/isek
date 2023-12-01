@@ -15,6 +15,6 @@ public class Sprite {
         //
     }
     public void render (Graphics g) {
-        //
+        //whartt he fuck
     }
 }

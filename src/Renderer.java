@@ -49,12 +49,12 @@ public class Renderer {
         startRendering();
     }
     private static void startRendering() {
-        Thread thread = new Thread() {
-            public void run(){
-                boolean goober = true;
+       // Thread thread = new Thread() {
+        //    public void run(){
+       //         boolean goober = true;
                 GraphicsConfiguration graphic = canvas.getGraphicsConfiguration();
                 VolatileImage Img = graphic.createCompatibleVolatileImage(gameWidth, gameHeight);
-                while (goober){
+      //          while (goober){
                     //counts fps... might remove if not vital to my thing.
                     totalFrames++;
                     if (System.nanoTime() > LastFPS + 1000000000){
@@ -79,12 +79,20 @@ public class Renderer {
                     //fps counter drawing time
                     graph.setColor(new Color(100,70,100));
                     graph.drawString("FPS: " + NowFPS,2,10);
+                    if (NowFPS<200){
+                        graph.setFont(new Font("Comic Sans MS", Font.PLAIN, 600));
+                        graph.drawString("BAD",gameWidth/2-600,gameHeight/2);
+                    } else{
+                        graph.setFont(new Font("Times New Roman", Font.PLAIN, 600));
+                        graph.drawString("MID", gameWidth/2-600,gameHeight/2);
+                    }
 
                     //other stuff...
                     BufferedImage img = null;
                     try {
-                        img = Renderer.loadImage("C:\\Users\\bingo\\IdeaProjects\\isek\\src\\lyney.png");
-                        graph.drawImage(img,  100,100, canvas);
+                        img = Renderer.loadImage("src/lyney.png");
+                        graph.drawImage(img,  100,100, null);
+                        System.out.println("here");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -95,11 +103,11 @@ public class Renderer {
                     graph.drawImage(Img, 0, 0, new Color(188, 240, 173), null);
 
                     graph.dispose();
-                }
-            }
-        };
-        thread.setName("coolguy746");
-        thread.start();
+            //    }
+          //  }
+       // };
+       // thread.setName("coolguy746");
+       // thread.start();
     }
 
     public static BufferedImage loadImage (String path) throws IOException {
