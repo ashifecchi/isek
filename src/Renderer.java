@@ -74,15 +74,20 @@ public class Renderer {
                     graph.fillRect(0,0, gameWidth, gameHeight);
 
                     //render stuff
-                    graph.setColor(new Color(80, 255, 143));
-                    graph.fillRect(0,0,100,100);
+
 
                     //fps counter drawing time
                     graph.setColor(new Color(100,70,100));
                     graph.drawString("FPS: " + NowFPS,2,10);
 
                     //other stuff...
-                    BufferedImage img = Renderer.loadImage("Resources/image-removebg-preview.png");
+                    BufferedImage img = null;
+                    try {
+                        img = Renderer.loadImage("C:\\Users\\bingo\\IdeaProjects\\isek\\src\\lyney.png");
+                        graph.drawImage(img,  100,100, canvas);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     graph.dispose();
 
@@ -99,8 +104,9 @@ public class Renderer {
 
     public static BufferedImage loadImage (String path) throws IOException {
         BufferedImage rawImage = ImageIO.read(new File(path));
-        BufferedImage finalImage = canvas.getGraphicsConfiguration().createCompatibleImage(rawImage.getWidth(), rawImage.getHeight(), rawImage.getTransparency());
-        return finalImage;
+        return canvas.getGraphicsConfiguration().createCompatibleImage(rawImage.getWidth(), rawImage.getHeight(), rawImage.getTransparency());
     }
+    //public static painttheThing(){
 
+   // }
 }
