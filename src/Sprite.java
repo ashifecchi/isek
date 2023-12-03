@@ -14,7 +14,10 @@ public class Sprite {
     public void update (float deltaTime){
         //
     }
+    public void setImage(BufferedImage im){
+        Image = im;
+    }
     public void render (Graphics g) {
-        //whartt he fuck
+        g.drawImage(Image, (int)posX,(int)posY, null);
     }
 }

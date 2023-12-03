@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class Renderer {
     private static JFrame frame;
@@ -27,94 +28,83 @@ public class Renderer {
     private static long LastFPS = 0;
     private static int NowFPS = 0;
     private static int totalFrames = 0;
-    public static void init (){
+
+    public static void init() throws IOException {
+        // making stuff har har
         Toolkit tools = Toolkit.getDefaultToolkit();
         frame = new JFrame();
         canvas = new JLabel();
         canvasSize = tools.getScreenSize();
-        gameWidth = (int)canvasSize.getWidth();
-        gameHeight = (int)canvasSize.getHeight();
+        gameWidth = (int) canvasSize.getWidth();
+        gameHeight = (int) canvasSize.getHeight();
 
+        //set the sizes n location
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        frame.setLocation(0,0);
+        frame.setLocation(0, 0);
         canvas.setPreferredSize(new Dimension(canvasSize));
 
+        //frame stuff like adding n closing
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(canvas);
         frame.setResizable(false);
-        //frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
 
+        // yay static method that starts the game n stuff
         startRendering();
     }
-    private static void startRendering() {
-       // Thread thread = new Thread() {
-        //    public void run(){
-       //         boolean goober = true;
-                GraphicsConfiguration graphic = canvas.getGraphicsConfiguration();
-                VolatileImage Img = graphic.createCompatibleVolatileImage(gameWidth, gameHeight);
-      //          while (goober){
-                    //counts fps... might remove if not vital to my thing.
-                    totalFrames++;
-                    if (System.nanoTime() > LastFPS + 1000000000){
-                        LastFPS = System.nanoTime();
-                        NowFPS = totalFrames;
-                        totalFrames = 0;
-                        System.out.println("FPS: "+ NowFPS);
-                    }
 
-                    if (Img.validate(graphic) == VolatileImage.IMAGE_INCOMPATIBLE){
-                        Img = graphic.createCompatibleVolatileImage(gameWidth, gameHeight); //create the image again
-                    }
+    //makes the graphics
+    private static void startRendering() throws IOException {
+        GraphicsConfiguration graphic = canvas.getGraphicsConfiguration();
+        VolatileImage Img = graphic.createCompatibleVolatileImage(gameWidth, gameHeight);
+        totalFrames++;
+        //fps counter
+        if (System.nanoTime() > LastFPS + 1000000000) {
+            LastFPS = System.nanoTime();
+            NowFPS = totalFrames;
+            totalFrames = 0;
+            System.out.println("FPS: " + NowFPS);
+        }
 
-                    Graphics graph = Img.getGraphics();
-                    //screen clear
-                    graph.setColor(new Color(170, 224, 242));
-                    graph.fillRect(0,0, gameWidth, gameHeight);
+        if (Img.validate(graphic) == VolatileImage.IMAGE_INCOMPATIBLE) {
+            Img = graphic.createCompatibleVolatileImage(gameWidth, gameHeight); //create the image again
+        }
 
-                    //render stuff
+        //the graphics creator
+        Graphics graph = Img.getGraphics();
+        BufferedImage bg1 = Renderer.loadImage("src/startbg.png");
+        BufferedImage bg2 = Renderer.loadImage("src/startbg2.png");
+        World menu = new World(Renderer.loadImage("src/startbg.png"));
+        if ((System.currentTimeMillis()) % 5000 == 0) {
+            menu.setBg(bg1);
+        } else {
+            menu.setBg(bg2);
+        }
+        menu.render(graph);
 
+        //render sprite
+        Sprite Image = new Sprite(100, 100);
 
-                    //fps counter drawing time
-                    graph.setColor(new Color(100,70,100));
-                    graph.drawString("FPS: " + NowFPS,2,10);
-                    if (NowFPS<200){
-                        graph.setFont(new Font("Comic Sans MS", Font.PLAIN, 600));
-                        graph.drawString("BAD",gameWidth/2-600,gameHeight/2);
-                    } else{
-                        graph.setFont(new Font("Times New Roman", Font.PLAIN, 600));
-                        graph.drawString("MID", gameWidth/2-600,gameHeight/2);
-                    }
+        //fps counter drawing time
+        graph.setColor(new Color(100, 70, 100));
+        graph.drawString("FPS: " + NowFPS, 2, 10);
 
-                    //other stuff...
-                    BufferedImage img = null;
-                    try {
-                        img = Renderer.loadImage("src/lyney.png");
-                        graph.drawImage(img,  100,100, null);
-                        System.out.println("here");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+        //other stuff...
+        Image.render(graph);
 
-                    graph.dispose();
+        //end this
+        graph.dispose();
 
-                    graph = canvas.getGraphics();
-                    graph.drawImage(Img, 0, 0, new Color(188, 240, 173), null);
+        graph = canvas.getGraphics();
+        graph.drawImage(Img, 0, 0, Color.black, null);
 
-                    graph.dispose();
-            //    }
-          //  }
-       // };
-       // thread.setName("coolguy746");
-       // thread.start();
+        //disposing of the graphics
+        graph.dispose();
     }
 
-    public static BufferedImage loadImage (String path) throws IOException {
-        BufferedImage rawImage = ImageIO.read(new File(path));
-        return canvas.getGraphicsConfiguration().createCompatibleImage(rawImage.getWidth(), rawImage.getHeight(), rawImage.getTransparency());
-    }
-    //public static painttheThing(){
-
-   // }
+        //to create buffered images
+        public static BufferedImage loadImage (String path) throws IOException {
+            return ImageIO.read(new File(path));
+        }
 }
