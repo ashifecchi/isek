@@ -2,6 +2,5 @@ import java.io.IOException;
 
 public class Game {
     public static void main(String[] args) throws IOException {
-        Renderer.init();
-    }
+        Renderer renderer = new Renderer();}
 }

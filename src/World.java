@@ -26,4 +26,7 @@ public class World {
     public void render (Graphics g){
         g.drawImage(bg,0,0,null);
     }
+    public void mcRoom(){
+
+    }
 }
