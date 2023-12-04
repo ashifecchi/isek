@@ -1,5 +1,9 @@
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+
+import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
 
 public class Sprite {
     public float posX = 0;
@@ -7,10 +11,12 @@ public class Sprite {
 
     public BufferedImage Image = null;
 
-    public Sprite (float posX, float posY){
+    public Sprite (float posX, float posY, BufferedImage image){
         this.posX = posX;
         this.posY = posY;
+        Image = image;
     }
+
     public void update (float deltaTime){
         //
     }

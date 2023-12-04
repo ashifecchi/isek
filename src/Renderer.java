@@ -1,18 +1,20 @@
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.io.File;
 import java.io.IOException;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
+
 public class Renderer implements ActionListener {
     private static JFrame frame;
     private static JLabel canvas;
-    private static JPanel holder;
     private static JButton startbutton;
     private static Dimension canvasSize;
     private static Graphics graph;
@@ -37,7 +39,6 @@ public class Renderer implements ActionListener {
         // making stuff har har
         Toolkit tools = Toolkit.getDefaultToolkit();
         frame = new JFrame();
-        holder = new JPanel();
         canvas = new JLabel();
         startbutton = new JButton();
         canvasSize = tools.getScreenSize();
@@ -49,19 +50,19 @@ public class Renderer implements ActionListener {
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setLocation(0, 0);
         canvas.setPreferredSize(new Dimension(canvasSize));
-        holder.setBounds(1000,1000,2000, (int)canvasSize.getHeight());
-        startbutton.setVisible(false);
-        startbutton.setEnabled(true);
+        startbutton.setBounds(100,100,500,200);
+        startbutton.setOpaque(false);
+        startbutton.setContentAreaFilled(false);
+        startbutton.setBorderPainted(false);
 
         //adding stuff
         startbutton.addActionListener(this);
         frame.add(canvas);
-        canvas.add(holder);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
 
-        // yay static method that starts the game n stuff
+        //yay static method that starts the game n stuff
         startRendering();
     }
 
@@ -89,23 +90,17 @@ public class Renderer implements ActionListener {
 
             //the menu screen
             if (world.equals("menu")) {
-                holder.add(startbutton,BorderLayout.SOUTH);
                 menuScreen();
             }
             if (world.equals("bedroom")){
                 bedroom();
             }
 
-            //render sprite
-            //make sprite
-            Sprite Image = new Sprite(100, 100);
-
             //fps counter drawing time
             graph.setColor(new Color(100, 70, 100));
             graph.drawString("FPS: " + NowFPS, 2, 10);
 
             //other stuff...
-            Image.render(graph);
 
             //end this
             graph.dispose();
@@ -120,27 +115,26 @@ public class Renderer implements ActionListener {
 
     public static void bedroom() throws IOException {
         World mcRoom = new World(Renderer.loadImage("src/bedroom.png"));
+        Sprite mc = new Sprite(800,500, Renderer.loadImage("src/loser.png"));
         mcRoom.render(graph);
+        mc.render(graph);
     }
 
-        //to create buffered images
-        public static BufferedImage loadImage (String path) throws IOException {
-            return ImageIO.read(new File(path));
+    //menu screen method
+    public static void menuScreen() throws IOException {
+        frame.add(startbutton);
+        BufferedImage bg1 = Renderer.loadImage("src/startbg.png");
+        BufferedImage bg2 = Renderer.loadImage("src/startbg2.png");
+        World menu = new World(Renderer.loadImage("src/startbg.png"));
+        long end = System.currentTimeMillis();  // makes the screen flash(cool!)
+        long elapsedTime = end - start;
+        if (elapsedTime%5 != 0) {
+            menu.setBg(bg1);
+        } else {
+            menu.setBg(bg2);
         }
-        public static void menuScreen() throws IOException {
-            BufferedImage bg1 = Renderer.loadImage("src/startbg.png");
-            BufferedImage bg2 = Renderer.loadImage("src/startbg2.png");
-            World menu = new World(Renderer.loadImage("src/startbg.png"));
-            long end = System.currentTimeMillis();  // makes the screen flash(cool!)
-            long elapsedTime = end - start;
-            if (elapsedTime%5 != 0) {
-                menu.setBg(bg1);
-            } else {
-                menu.setBg(bg2);
-            }
-            menu.render(graph);
-        }
-
+        menu.render(graph);
+    }
     public void actionPerformed(ActionEvent ae) {
         // cast ae to a JButton object since we want to call the getText method on it;
         // casting is needed since getSource() returns Object type, NOT a JButton
@@ -148,9 +142,20 @@ public class Renderer implements ActionListener {
         if (source instanceof JButton) {
             JButton button = (JButton) source;
             if (button == startbutton){
-                System.out.println("clicked");
+                startbutton.setEnabled(false);
                 world = "bedroom";
             }
         }
     }
+    //to create buffered images
+    public static BufferedImage loadImage (String path) throws IOException {
+        return ImageIO.read(new File(path));
+    }
+   // public static void mouseClicked(MouseEvent e){
+      //  if (e.getSource() instanceof Sprite){
+            //if (){
+
+       //     }
+      //  }
+   // }
 }

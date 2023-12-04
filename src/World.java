@@ -1,5 +1,5 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;A
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class World {
@@ -22,8 +22,5 @@ public class World {
     }
     public void render (Graphics g){
         g.drawImage(bg,0,0,null);
-    }
-    public void mcRoom(){
-
     }
 }
