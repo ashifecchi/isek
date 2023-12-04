@@ -114,8 +114,8 @@ public class Renderer implements ActionListener {
     }
 
     public static void bedroom() throws IOException {
-        World mcRoom = new World(Renderer.loadImage("src/bedroom.png"));
-        Sprite mc = new Sprite(800,500, Renderer.loadImage("src/loser.png"));
+        World mcRoom = new World(Renderer.loadImage("images/bedroom.png"));
+        Sprite mc = new Sprite(800,500, Renderer.loadImage("images/loser.png"));
         mcRoom.render(graph);
         mc.render(graph);
     }
@@ -123,9 +123,9 @@ public class Renderer implements ActionListener {
     //menu screen method
     public static void menuScreen() throws IOException {
         frame.add(startbutton);
-        BufferedImage bg1 = Renderer.loadImage("src/startbg.png");
-        BufferedImage bg2 = Renderer.loadImage("src/startbg2.png");
-        World menu = new World(Renderer.loadImage("src/startbg.png"));
+        BufferedImage bg1 = Renderer.loadImage("images/startbg.png");
+        BufferedImage bg2 = Renderer.loadImage("images/startbg2.png");
+        World menu = new World(Renderer.loadImage("images/startbg.png"));
         long end = System.currentTimeMillis();  // makes the screen flash(cool!)
         long elapsedTime = end - start;
         if (elapsedTime%5 != 0) {
