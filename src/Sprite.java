@@ -19,8 +19,9 @@ public class Sprite {
         Image = image;
     }
 
-    public void update (float deltaTime){
-        //
+    public void update (BufferedImage img){
+        Image = img;
+        render(img.getGraphics());
     }
     public void setImage(BufferedImage im){
         Image = im;

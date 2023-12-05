@@ -16,6 +16,10 @@ public class Renderer implements ActionListener, KeyListener {
     private static JButton startbutton;
     private static Dimension canvasSize;
     private static Graphics graph;
+    private BufferedImage mcUp;
+    private BufferedImage mcDown;
+    private BufferedImage mcRight;
+    private BufferedImage mcLeft;
 
     private static final int GAME_WIDTH = 400;
     private static final int GAME_HEIGHT = 300;
@@ -117,6 +121,10 @@ public class Renderer implements ActionListener, KeyListener {
         mc = new Sprite(500,300, Renderer.loadImage("images/loser.png"));
         frame.addKeyListener(this);
         mcRoom.render(graph);
+        mcUp = Renderer.loadImage("images/loserBack.png");
+        mcDown = Renderer.loadImage("images/loser.png");
+        mcRight = Renderer.loadImage("images/loserRight.png");
+        mcLeft = Renderer.loadImage("images/loserLeft.png");
         mc.render(graph);
     }
 
@@ -159,39 +167,29 @@ public class Renderer implements ActionListener, KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) { //i dont know if this works or not fuck yourself
         if (e.isActionKey()){
-            if (e.getKeyCode() == KeyEvent.VK_UP){
-                try {
-                    mc.setImage(Renderer.loadImage("images/loserBack.png"));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                System.out.println("you did it");
+                mc.update(mcUp);
                 mc.moveUp();
-            } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                try {
-                    mc.setImage(Renderer.loadImage("images/loser.png"));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                System.out.println("you did it");
+                mc.update(mcDown);
                 mc.moveDown();
-            } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                try {
-                    mc.setImage(Renderer.loadImage("images/loserRight.png"));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                System.out.println("you did it");
+                mc.update(mcRight);
                 mc.moveRight();
-            } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                try {
-                    mc.setImage(Renderer.loadImage("images/loserLeft.png"));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                System.out.println("you did it");
+                mc.update(mcLeft);
                 mc.moveLeft();
             }
         }
-        System.out.println("you did it");
     }
 
     @Override
