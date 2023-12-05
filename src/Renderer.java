@@ -1,18 +1,16 @@
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
 import java.io.File;
 import java.io.IOException;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 
-public class Renderer implements ActionListener {
+public class Renderer implements ActionListener, KeyListener {
     private static JFrame frame;
     private static JLabel canvas;
     private static JButton startbutton;
@@ -30,6 +28,7 @@ public class Renderer implements ActionListener {
     private static int NowFPS = 0;
     private static int totalFrames = 0;
     private static long start; //so that the menustart method works without crying.
+    static Sprite mc; //to make it exist. 
 
     public Renderer() throws IOException {
         init();
@@ -48,7 +47,7 @@ public class Renderer implements ActionListener {
         //set the sizes n location
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        frame.setLocation(0, 0);
+        frame.setLocation(600,300);
         canvas.setPreferredSize(new Dimension(canvasSize));
         startbutton.setBounds(100,100,500,200);
         startbutton.setOpaque(false);
@@ -57,7 +56,7 @@ public class Renderer implements ActionListener {
 
         //adding stuff
         startbutton.addActionListener(this);
-        frame.add(canvas);
+        frame.add(canvas, BorderLayout.CENTER);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
@@ -67,7 +66,7 @@ public class Renderer implements ActionListener {
     }
 
     //makes the graphics
-    private static void startRendering() throws IOException {
+    private void startRendering() throws IOException {
         GraphicsConfiguration graphic = canvas.getGraphicsConfiguration();
         VolatileImage Img = graphic.createCompatibleVolatileImage(gameWidth, gameHeight);
         while (true) {
@@ -113,9 +112,10 @@ public class Renderer implements ActionListener {
         }
     }
 
-    public static void bedroom() throws IOException {
+    public void bedroom() throws IOException {
         World mcRoom = new World(Renderer.loadImage("images/bedroom.png"));
-        Sprite mc = new Sprite(800,500, Renderer.loadImage("images/loser.png"));
+        mc = new Sprite(500,300, Renderer.loadImage("images/loser.png"));
+        frame.addKeyListener(this);
         mcRoom.render(graph);
         mc.render(graph);
     }
@@ -126,6 +126,7 @@ public class Renderer implements ActionListener {
         BufferedImage bg1 = Renderer.loadImage("images/startbg.png");
         BufferedImage bg2 = Renderer.loadImage("images/startbg2.png");
         World menu = new World(Renderer.loadImage("images/startbg.png"));
+        frame.setSize(bg1.getWidth(), bg2.getHeight()+20);
         long end = System.currentTimeMillis();  // makes the screen flash(cool!)
         long elapsedTime = end - start;
         if (elapsedTime%5 != 0) {
@@ -151,11 +152,50 @@ public class Renderer implements ActionListener {
     public static BufferedImage loadImage (String path) throws IOException {
         return ImageIO.read(new File(path));
     }
-   // public static void mouseClicked(MouseEvent e){
-      //  if (e.getSource() instanceof Sprite){
-            //if (){
 
-       //     }
-      //  }
-   // }
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.isActionKey()){
+            if (e.getKeyCode() == KeyEvent.VK_UP){
+                try {
+                    mc.setImage(Renderer.loadImage("images/loserBack.png"));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                mc.moveUp();
+            } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                try {
+                    mc.setImage(Renderer.loadImage("images/loser.png"));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                mc.moveDown();
+            } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                try {
+                    mc.setImage(Renderer.loadImage("images/loserRight.png"));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                mc.moveRight();
+            } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                try {
+                    mc.setImage(Renderer.loadImage("images/loserLeft.png"));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                mc.moveLeft();
+            }
+        }
+        System.out.println("you did it");
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("you stopped click key");
+    }
 }
