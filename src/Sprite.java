@@ -31,18 +31,18 @@ public class Sprite {
     }
     public void moveUp(){
         posY--;
-        render(Image.getGraphics());
+        update(Image);
     }
     public void moveDown(){
         posY++;
-        render(Image.getGraphics());
+        update(Image);
     }
     public void moveRight(){
         posX++;
-        render(Image.getGraphics());
+        update(Image);
     }
     public void moveLeft() {
         posX--;
-        render(Image.getGraphics());
+        update(Image);
     }
 }

@@ -120,12 +120,12 @@ public class Renderer implements ActionListener, KeyListener {
         World mcRoom = new World(Renderer.loadImage("images/bedroom.png"));
         mc = new Sprite(500,300, Renderer.loadImage("images/loser.png"));
         frame.addKeyListener(this);
+        frame.requestFocus();
         mcRoom.render(graph);
         mcUp = Renderer.loadImage("images/loserBack.png");
         mcDown = Renderer.loadImage("images/loser.png");
         mcRight = Renderer.loadImage("images/loserRight.png");
         mcLeft = Renderer.loadImage("images/loserLeft.png");
-        mc.render(graph);
     }
 
     //menu screen method
@@ -145,6 +145,7 @@ public class Renderer implements ActionListener, KeyListener {
         menu.render(graph);
     }
     public void actionPerformed(ActionEvent ae) {
+        System.out.println("clicky click");
         // cast ae to a JButton object since we want to call the getText method on it;
         // casting is needed since getSource() returns Object type, NOT a JButton
         Object source = ae.getSource();
@@ -163,30 +164,27 @@ public class Renderer implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        System.out.println("key pressed");
     }
 
     @Override
     public void keyPressed(KeyEvent e) { //i dont know if this works or not fuck yourself
+        System.out.println("pressed");
         if (e.isActionKey()){
             if (e.getKeyCode() == KeyEvent.VK_UP) {
                 System.out.println("you did it");
-                mc.update(mcUp);
                 mc.moveUp();
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 System.out.println("you did it");
-                mc.update(mcDown);
                 mc.moveDown();
             }
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                 System.out.println("you did it");
-                mc.update(mcRight);
                 mc.moveRight();
             }
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                 System.out.println("you did it");
-                mc.update(mcLeft);
                 mc.moveLeft();
             }
         }
@@ -194,6 +192,6 @@ public class Renderer implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println("you stopped click key");
+      //  System.out.println("you stopped click key");
     }
 }
