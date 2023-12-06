@@ -97,8 +97,10 @@ public class Renderer implements ActionListener, KeyListener {
             if (world.equals("bedroom")){
                 World mcRoom = new World(Renderer.loadImage("images/bedroom.png"));
                 mc = new Sprite(500,300, Renderer.loadImage("images/loser.png"));
-                frame.addKeyListener(this);
-                frame.requestFocus();
+                mcUp = Renderer.loadImage("images/loserBack.png");
+                mcDown = Renderer.loadImage("images/loser.png");
+                mcRight = Renderer.loadImage("images/loserRight.png");
+                mcLeft = Renderer.loadImage("images/loserLeft.png");
                 mcRoom.render(graph);
                 bedroom();
             }
@@ -120,11 +122,9 @@ public class Renderer implements ActionListener, KeyListener {
         }
     }
 
-    public void bedroom() throws IOException {
-        mcUp = Renderer.loadImage("images/loserBack.png");
-        mcDown = Renderer.loadImage("images/loser.png");
-        mcRight = Renderer.loadImage("images/loserRight.png");
-        mcLeft = Renderer.loadImage("images/loserLeft.png");
+    public void bedroom(){
+        frame.addKeyListener(this);
+        frame.requestFocus();
         mc.render(graph);
     }
 
@@ -145,7 +145,7 @@ public class Renderer implements ActionListener, KeyListener {
         menu.render(graph);
     }
     public void actionPerformed(ActionEvent ae) {
-        System.out.println("clicky click");
+        System.out.println("pizza john");
         // cast ae to a JButton object since we want to call the getText method on it;
         // casting is needed since getSource() returns Object type, NOT a JButtonF
         Object source = ae.getSource();
