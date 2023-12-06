@@ -30,19 +30,19 @@ public class Sprite {
         g.drawImage(Image, (int)posX,(int)posY, null);
     }
     public void moveUp(){
-        posY--;
+        posY-=1;
         update(Image);
     }
     public void moveDown(){
-        posY++;
+        posY+=1;
         update(Image);
     }
     public void moveRight(){
-        posX++;
+        posX+=1;
         update(Image);
     }
     public void moveLeft() {
-        posX--;
+        posX-=1;
         update(Image);
     }
 }

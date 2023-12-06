@@ -65,7 +65,7 @@ public class Renderer implements ActionListener, KeyListener {
         frame.pack();
         frame.setVisible(true);
 
-        //yay static method that starts the game n stuff
+        //yay method that starts the game n stuff
         startRendering();
     }
 
@@ -81,7 +81,6 @@ public class Renderer implements ActionListener, KeyListener {
                 LastFPS = System.nanoTime();
                 NowFPS = totalFrames;
                 totalFrames = 0;
-                System.out.println("FPS: " + NowFPS);
             }
 
             if (Img.validate(graphic) == VolatileImage.IMAGE_INCOMPATIBLE) {
@@ -96,6 +95,11 @@ public class Renderer implements ActionListener, KeyListener {
                 menuScreen();
             }
             if (world.equals("bedroom")){
+                World mcRoom = new World(Renderer.loadImage("images/bedroom.png"));
+                mc = new Sprite(500,300, Renderer.loadImage("images/loser.png"));
+                frame.addKeyListener(this);
+                frame.requestFocus();
+                mcRoom.render(graph);
                 bedroom();
             }
 
@@ -117,15 +121,11 @@ public class Renderer implements ActionListener, KeyListener {
     }
 
     public void bedroom() throws IOException {
-        World mcRoom = new World(Renderer.loadImage("images/bedroom.png"));
-        mc = new Sprite(500,300, Renderer.loadImage("images/loser.png"));
-        frame.addKeyListener(this);
-        frame.requestFocus();
-        mcRoom.render(graph);
         mcUp = Renderer.loadImage("images/loserBack.png");
         mcDown = Renderer.loadImage("images/loser.png");
         mcRight = Renderer.loadImage("images/loserRight.png");
         mcLeft = Renderer.loadImage("images/loserLeft.png");
+        mc.render(graph);
     }
 
     //menu screen method
@@ -147,7 +147,7 @@ public class Renderer implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent ae) {
         System.out.println("clicky click");
         // cast ae to a JButton object since we want to call the getText method on it;
-        // casting is needed since getSource() returns Object type, NOT a JButton
+        // casting is needed since getSource() returns Object type, NOT a JButtonF
         Object source = ae.getSource();
         if (source instanceof JButton) {
             JButton button = (JButton) source;
@@ -173,18 +173,22 @@ public class Renderer implements ActionListener, KeyListener {
         if (e.isActionKey()){
             if (e.getKeyCode() == KeyEvent.VK_UP) {
                 System.out.println("you did it");
+                mc.setImage(mcUp);
                 mc.moveUp();
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 System.out.println("you did it");
+                mc.setImage(mcDown);
                 mc.moveDown();
             }
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                 System.out.println("you did it");
+                mc.setImage(mcRight);
                 mc.moveRight();
             }
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                 System.out.println("you did it");
+                mc.setImage(mcLeft);
                 mc.moveLeft();
             }
         }
