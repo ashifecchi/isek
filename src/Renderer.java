@@ -31,11 +31,15 @@ public class Renderer implements ActionListener, KeyListener {
     private static long LastFPS = 0;
     private static int NowFPS = 0;
     private static int totalFrames = 0;
+    private int counter = 0;
     private static long start; //so that the menustart method works without crying.
     static Sprite mc; //to make it exist. 
 
     public Renderer() throws IOException {
         init();
+    }
+    public static JFrame getFrame(){
+        return frame;
     }
 
     public void init() throws IOException {
@@ -95,13 +99,16 @@ public class Renderer implements ActionListener, KeyListener {
                 menuScreen();
             }
             if (world.equals("bedroom")){
-                World mcRoom = new World(Renderer.loadImage("images/bedroom.png"));
-                mc = new Sprite(500,300, Renderer.loadImage("images/loser.png"));
-                mcUp = Renderer.loadImage("images/loserBack.png");
-                mcDown = Renderer.loadImage("images/loser.png");
-                mcRight = Renderer.loadImage("images/loserRight.png");
-                mcLeft = Renderer.loadImage("images/loserLeft.png");
-                mcRoom.render(graph);
+                if (counter==0) {
+                    World mcRoom = new World(Renderer.loadImage("images/bedroom.png"));
+                    mc = new Sprite(500, 300, Renderer.loadImage("images/loser.png"));
+                    mcUp = Renderer.loadImage("images/loserBack.png");
+                    mcDown = Renderer.loadImage("images/loser.png");
+                    mcRight = Renderer.loadImage("images/loserRight.png");
+                    mcLeft = Renderer.loadImage("images/loserLeft.png");
+                    counter++;
+                    mcRoom.render(graph);
+                }
                 bedroom();
             }
 
@@ -196,6 +203,6 @@ public class Renderer implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-      //  System.out.println("you stopped click key");
+        //nothing
     }
 }
