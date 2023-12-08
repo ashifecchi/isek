@@ -11,7 +11,7 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 
 public class Renderer implements ActionListener, KeyListener {
-    private static JFrame frame;
+    public static JFrame frame;
     private static JLabel canvas;
     private static JButton startbutton;
     private static Dimension canvasSize;
@@ -20,9 +20,6 @@ public class Renderer implements ActionListener, KeyListener {
     private BufferedImage mcDown;
     private BufferedImage mcRight;
     private BufferedImage mcLeft;
-
-    private static final int GAME_WIDTH = 400;
-    private static final int GAME_HEIGHT = 300;
 
     private static String world = "menu";
     private static int gameWidth = 0;
@@ -37,9 +34,6 @@ public class Renderer implements ActionListener, KeyListener {
 
     public Renderer() throws IOException {
         init();
-    }
-    public static JFrame getFrame(){
-        return frame;
     }
 
     public void init() throws IOException {
@@ -176,31 +170,26 @@ public class Renderer implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) { //i dont know if this works or not fuck yourself
-        System.out.println("pressed");
         if (e.isActionKey()){
             if (e.getKeyCode() == KeyEvent.VK_UP) {
-                System.out.println("you did it");
                 mc.setImage(mcUp);
                 mc.moveUp();
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                System.out.println("you did it");
                 mc.setImage(mcDown);
                 mc.moveDown();
             }
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                System.out.println("you did it");
                 mc.setImage(mcRight);
                 mc.moveRight();
             }
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                System.out.println("you did it");
                 mc.setImage(mcLeft);
                 mc.moveLeft();
             }
+            mc.paint(graph);
         }
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
         //nothing
