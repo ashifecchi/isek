@@ -28,30 +28,39 @@ public class Sprite {
         g.drawImage(img, posX,posY, null);
     }
     public void moveUp(){
-        if (!(posY-1<0)) {
+        if (!(posY - 1 < 0)) {
+            if (time() % 10 == 0) {
             posY -= 1;
+            }
         }
     }
     public void moveDown() {
-        if (!(posY+1>frame.getHeight())) {
-            posY += 1;
+            if (!(posY + 1 > frame.getHeight())) {
+                if (time() % 10 == 0){
+                    posY += 1;
+            }
         }
     }
     public void moveRight() {
         System.out.println(frame.getWidth());
         System.out.println(posX);
-        if ((posX + 1 > frame.getWidth())) {
-
-        } else {
-            posX += 1;
+            if (!(posX + 1 > frame.getWidth())) {
+                if (time() % 10 == 0) {
+                posX += 1;
+            }
         }
     }
     public void moveLeft() {
-        if (!(posX-1<0)){
+        if (!(posX - 1 < 0)) {
+            if (time() % 10 == 0) {
             posX -= 1;
+            }
         }
     }
     public void paint(Graphics g){
         g.drawImage(img, posX, posY, null);
+    }
+    private static float time(){
+        return System.nanoTime()*100000000f;
     }
 }

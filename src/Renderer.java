@@ -187,11 +187,12 @@ public class Renderer implements ActionListener, KeyListener {
                 mc.setImage(mcLeft);
                 mc.moveLeft();
             }
-            mc.paint(graph);
         }
     }
     @Override
     public void keyReleased(KeyEvent e) {
-        //nothing
+        if (world.equals("bedroom")) {
+            mc.setImage(mcDown);
+        }
     }
 }
